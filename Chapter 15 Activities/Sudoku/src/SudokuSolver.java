@@ -3,8 +3,8 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class SudokuSolver {
-    private final int M = 3;
-    private final int N = M * M;
+    private final int M = 3; // the number of squares in a row
+    private final int N = M * M; // the number of squares in sudoko
     private int[][] grid;
     private ArrayList<Set<Integer>> rows;
     private ArrayList<Set<Integer>> cols;
@@ -35,11 +35,42 @@ public class SudokuSolver {
             System.out.println("Cannot open: " + fileName);
         }
 
-        // create the list of sets for each row (this.rows)
-        // ...
+        // create the list of sets for each row (this.rows)                      //redo this
+        Set<Integer>row1 = new HashSet();
+        Set<Integer>row2 = new HashSet();
+        Set<Integer>row3 = new HashSet();
+        
+        for(int col = 0,row = 0; col<=3;col++){
+            row1.add(this.grid[row][col]);
+        }
+        for(int col = 0,row = 1; col<=3;col++){
+            row2.add(this.grid[row][col]);
+        }
+        for(int col = 0,row = 2; col<=3;col++){
+            row3.add(this.grid[row][col]);
+        }
+        this.rows.add(row1);
+        this.rows.add(row2);
+        this.rows.add(row3);
+            
 
         // create the list of sets for each col (this.cols)
-        // ...
+        Set<Integer>col1 = new HashSet();
+        Set<Integer>col2 = new HashSet();
+        Set<Integer>col3 = new HashSet();
+        
+        for(int col = 0,row = 0; row<=M;row++){
+            col1.add(this.grid[row][col]);
+        }
+        for(int col = 0,row = 1; row<=M;row++){
+            col2.add(this.grid[row][col]);
+        }
+        for(int col = 0,row = 2; row<=M;row++){
+            col3.add(this.grid[row][col]);
+        }
+        this.cols.add(col1);
+        this.cols.add(col2);
+        this.cols.add(col3);
 
         // create the list of sets for each square (this.squares)
         /* the squares are added to the list row-by-row:
@@ -47,10 +78,19 @@ public class SudokuSolver {
             3 4 5
             6 7 8
          */
-        // ...
+        Set<Integer>sqs = new HashSet();
+        for(int row = 0; row<=M;row++){
+            for(int col = 0; col<=M;col++){
+                sqs.add(this.grid[row][col]);
+            }
+        }
+        this.squares.add(sqs);
 
         // create a hash set for [1..9] (this.nums)
-        // ...
+        this.nums = new HashSet();
+        for(int num = 1; num<=9;num++)
+            this.nums.add(num);
+        
 
         // visually inspect that all the sets are correct
         for (int row = 0; row < N; row++) {
@@ -89,7 +129,7 @@ public class SudokuSolver {
         /*
             Create a new set based on the this.nums and remove all elements in the sets
             corresponding to nextRow, nextCol, and the corresponding square (use the
-            removeAll method).
+            removeAll method). uses size (m) for square
 
             Properly indexing the squares list of sets is tricky. Verify that your
             algorithm is correct.
@@ -97,7 +137,7 @@ public class SudokuSolver {
         Set<Integer> possibleNums = new HashSet<Integer>();
         possibleNums.addAll(this.nums);
         
-        // ...
+        
 
         // if there are no possible numbers, we cannot solve the board in its current state
         if (possibleNums.isEmpty()) {
