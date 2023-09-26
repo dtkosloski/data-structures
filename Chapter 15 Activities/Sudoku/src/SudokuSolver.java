@@ -38,10 +38,12 @@ public class SudokuSolver {
         // create the list of sets for each row (this.rows)                      //redo this
         this.rows = new ArrayList<Set<Integer>>() ;
         
-        for(int row = 0; row<=M;row++){
-            for(int col = 0; col<=M;col++){
+        for(int row = 0; row<M;row++){
+            for(int col = 0; col<M;col++){
                 Set<Integer> rowT = new HashSet();
-                rowT.add(this.grid[row][col]);
+                Integer num = 0;
+                num = this.grid[row][col];
+                rowT.add(num);
                 this.rows.add(rowT);
             }
         }
@@ -50,14 +52,13 @@ public class SudokuSolver {
         // create the list of sets for each col (this.cols)
         this.cols = new ArrayList<Set<Integer>>() ;
         
-        for(int col = 0; col<=M;col++){
-            for(int row = 0; row<=M;row++){
+        for(int col = 0; col<M;col++){
+            for(int row = 0; row<M;row++){
                 Set<Integer> colT = new HashSet();
-                colT.add(grid[row][col]);
+                colT.add(this.grid[row][col]);
                 this.cols.add(colT);
             }
         }
-        
 
         // create the list of sets for each square (this.squares)
         /* the squares are added to the list row-by-row:
@@ -65,11 +66,12 @@ public class SudokuSolver {
             3 4 5
             6 7 8
          */
-        for(int row = 0; row<=M;row++){
-            for(int col = 0; col<=M;col++){
+        for(int row = 0; row<M;row++){
+            for(int col = 0; col<M;col++){
                 Set<Integer> square = new HashSet();
-                square.add(grid[row][col]);
+                square.add(this.grid[row][col]);
                 this.squares.add(square);
+                square.clear();
             }
         }
 
@@ -124,6 +126,11 @@ public class SudokuSolver {
         Set<Integer> possibleNums = new HashSet<Integer>();
         possibleNums.addAll(this.nums);
         
+        for(int row = 0; row<this.rows.size();row++){
+            for(int col = 0; col<this.cols.size();col++){
+                possibleNums.removeAll();
+            }
+        }
         
 
         // if there are no possible numbers, we cannot solve the board in its current state
