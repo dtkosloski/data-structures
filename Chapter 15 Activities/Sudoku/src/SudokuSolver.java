@@ -37,10 +37,14 @@ public class SudokuSolver {
 
         // create the list of sets for each row (this.rows)                      //redo this
         this.rows = new ArrayList<>() ;
+        for (int i = 0; i < N; i++) 
+            this.rows.add(new HashSet<>());
             
 
         // create the list of sets for each col (this.cols)
         this.cols = new ArrayList<>() ;
+        for (int i = 0; i < N; i++) 
+            this.cols.add(new HashSet<>());
         
 
         // create the list of sets for each square (this.squares)
@@ -51,8 +55,6 @@ public class SudokuSolver {
          */
         this.squares = new ArrayList<>();
         for (int i = 0; i < N; i++) {
-            this.rows.add(new HashSet<>());
-            this.cols.add(new HashSet<>());
             this.squares.add(new HashSet<>());
         }
 
@@ -173,7 +175,7 @@ public class SudokuSolver {
     }
 
     public static void main(String[] args) {
-        String fileName = "E:\\BlueJ\\data-structures\\Chapter 15 Activities\\Sudoku\\src\\puzzle1.txt";
+        String fileName = "src/puzzle1.txt";
 
         SudokuSolver solver = new SudokuSolver(fileName);
         System.out.println(solver);
