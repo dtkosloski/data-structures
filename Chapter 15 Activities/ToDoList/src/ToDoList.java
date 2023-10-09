@@ -86,7 +86,8 @@ public class ToDoList
         
         
         // Complete this method
-        System.out.println(next = toDo.remove());
+        if (!(toDo.isEmpty()))
+            next = toDo.remove();
         
         
         
