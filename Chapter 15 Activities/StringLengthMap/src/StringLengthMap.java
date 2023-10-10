@@ -18,7 +18,7 @@ public class StringLengthMap
         {
 
             // Create your map here
-            
+            Map<Integer, String> lengthMap = new TreeMap<>();
 
             while (in.hasNext())
             {
@@ -27,13 +27,24 @@ public class StringLengthMap
 
                 // Update the map here
                 // Modify Worked Example 15.1
-                
+                if (lengthMap.containsKey(len)) {
+                    String existingValue = lengthMap.get(len);
+                    existingValue += ", " + word;
+                    lengthMap.put(len, existingValue);
+                } else {
+                    lengthMap.put(len, word);
+                }
+            }
 
 
             }
 
             // Print the strings, in increasing order of their length
             // Use this format: 1: i, a, i
+            for (Map.Entry<Integer, String> entry : lengthMap.entrySet())
+            {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+            }
         } catch (FileNotFoundException e)
         {
             System.out.println("Cannot open: " + filename);
