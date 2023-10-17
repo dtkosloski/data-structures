@@ -8,12 +8,16 @@ import java.util.NoSuchElementException;
 */
 public class LinkedList
 {
-
+    //first refers to the first note in the list
+    //if the list is empty, first is null 
+    private Node first;
 
     /**
         Constructs an empty linked list.
     */
-
+    public LinkedList(){
+        this.first = null;
+    }
 
 
 
@@ -21,7 +25,12 @@ public class LinkedList
         Returns the first element in the linked list.
         @return the first element in the linked list
     */
-
+    public Object getFirst(){
+        if (this.first == null){
+            throw new NoSuchElementException();
+        }
+        return this.first.data;
+    }
 
 
 
@@ -29,7 +38,14 @@ public class LinkedList
         Removes the first element in the linked list.
         @return the removed element
     */
-
+    public Object removeFirst(){
+        if (this.first == null){
+            throw new NoSuchElementException();
+        }
+        Object element = this.first.data;
+        this.first = this.first.next;
+        return element;
+    }
 
 
 
@@ -38,7 +54,12 @@ public class LinkedList
         Adds an element to the front of the linked list.
         @param element the element to add
     */
-
+    public void addFirst(Object element){
+        Node newNode = new Node();
+        newNode.data = element;
+        newNode.next = this.first;
+        this.first = newNode;
+    }
 
 
 
@@ -51,26 +72,51 @@ public class LinkedList
 
 
 
-
     //Class Node
+    static class Node{
+        public Object data;
+        public Node next;
+    }
 
 
-    class LinkedListIterator //implements ListIterator
+    class LinkedListIterator implements ListIterator
     {
       //private data
-
+        private Node position;
+        private Node previous;
+        private boolean isAfterNext;
 
         /**
             Constructs an iterator that points to the front
             of the linked list.
         */
-
+        public LinkedListIterator(){
+            position = null;
+            previous = null;
+            isAfterNext = false;
+        }
 
         /**
             Moves the iterator past the next element.
             @return the traversed element
         */
+        public Object next(){
+            if(!hasNext()){
+                throw new NoSuchElementException();
+            }
 
+            previous = position;
+            isAfterNext = true;
+
+            //the position is null when the iterator is first created
+            if(position == null){
+                position = first;
+            }
+            else{
+                position = position.next;
+            }
+            return position.data;
+        }
 
 
 
@@ -79,6 +125,13 @@ public class LinkedList
             Tests if there is an element after the iterator position.
             @return true if there is an element after the iterator position
         */
+        public boolean hasNext(){
+            //return false if there are no elements in the list
+            if(position == null){
+                return first!= null;
+            }
+            return position.next != null;
+        }
 
 
         /**
@@ -86,6 +139,20 @@ public class LinkedList
             and moves the iterator past the inserted element.
             @param element the element to add
         */
+        public void add(Object element){
+            if(position==null){
+                //check if the iterator is at the start of the list
+                addFirst(element);
+                position = first;
+            }
+            else{
+                Node newNode = new Node();
+                newNode.data = element;
+                newNode.next = position.next;
+                position.next = newNode;
+                position = newNode;
+            }
+        }
 
 
 
