@@ -68,7 +68,9 @@ public class LinkedList
         Returns an iterator for iterating through this list.
         @return an iterator for iterating through this list
     */
-
+    public ListIterator listIterator(){
+        return new LinkedListIterator();
+    }
 
 
 
@@ -152,6 +154,7 @@ public class LinkedList
                 position.next = newNode;
                 position = newNode;
             }
+            isAfterNext = false;
         }
 
 
@@ -163,7 +166,20 @@ public class LinkedList
             Removes the last traversed element. This method may
             only be called after a call to the next() method.
         */
-
+        public void remove(){
+            if (!isAfterNext){
+                throw new IllegalStateException();
+            }
+            if(position==first){
+                removeFirst();
+                position = null;
+            }
+            else{
+                previous.next = position.next;
+                position = previous;
+            }
+            isAfterNext = false;
+        }
 
 
 
@@ -174,6 +190,12 @@ public class LinkedList
             Sets the last traversed element to a different value.
             @param element the element to set
         */
+        public void set(Object element){
+            if(!isAfterNext){
+                throw new IllegalStateException();
+            }
+            position.data = element;
+        }
 
 
 

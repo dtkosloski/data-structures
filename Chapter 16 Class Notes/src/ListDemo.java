@@ -5,5 +5,12 @@ public class ListDemo
 {
     public static void main(String[] args)
     {
+        LinkedList students = new LinkedList();
+        students.addFirst("Joe");
+        students.addFirst("Jim");
+        students.addFirst("Jack");
+        students.addFirst("John");
+        students.addFirst("Jake");
+        System.out.println(students);
     }
 }

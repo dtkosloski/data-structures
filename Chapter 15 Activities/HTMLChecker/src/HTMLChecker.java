@@ -17,33 +17,17 @@ public class HTMLChecker
 {
     public static void main(String[] args)
     {
-        String filename = "TagSample1.html";
+        String filename = "src/TagSample1.html";
 
         try (Scanner in = new Scanner(new File(filename)))
         {
-            Stack<String> stack = new Stack<>();
-
-            while (in.hasNext()) {
-                String tag = in.next();
-                if (isOpeningTag(tag)) {
-                    stack.push(tag);
-                } else if (isClosingTag(tag)) {
-                    if (stack.isEmpty()) {
-                        System.out.println("Error: Found a closing tag without a corresponding opening tag: " + tag);
-                        return; // Stop checking if there's an error
-                    }
-                    String top = stack.pop();
-                    if (!areMatchingTags(top, tag)) {
-                        System.out.println("Error: Mismatched tags: " + top + " and " + tag);
-                        return; // Stop checking if there's an error
-                    }
-                }
+            // Your code goes here
+            Stack<String> tags = new Stack<>();
+            while(in.hasNext()){
+                tags.push(in.next());
             }
-
-            if (stack.isEmpty()) {
-                System.out.println("HTML tags are properly nested.");
-            } else {
-                System.out.println("Error: Some tags are not properly closed.");
+            for(String tag:tags){
+                System.out.println();
             }
 
 
@@ -52,19 +36,5 @@ public class HTMLChecker
             System.out.println("Cannot open: " + filename);
         }
 
-    }
-    // Check if a string is an opening HTML tag, e.g., <p>
-    private static boolean isOpeningTag(String tag) {
-        return tag.startsWith("<") && !tag.startsWith("</");
-    }
-
-    // Check if a string is a closing HTML tag, e.g., </p>
-    private static boolean isClosingTag(String tag) {
-        return tag.startsWith("</");
-    }
-
-    // Check if two tags are matching (e.g., <p> and </p>)
-    private static boolean areMatchingTags(String openingTag, String closingTag) {
-        return openingTag.substring(1).equals(closingTag.substring(2));
     }
 }
