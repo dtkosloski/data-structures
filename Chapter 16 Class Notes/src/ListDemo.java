@@ -12,5 +12,15 @@ public class ListDemo
         students.addFirst("John");
         students.addFirst("Jake");
         System.out.println(students);
+
+        ListIterator iterator = students.listIterator();
+        iterator.next();
+        iterator.next();
+        iterator.next();
+        iterator.add("Devon");
+        System.out.println(students);
+        iterator.next();
+        iterator.remove();
+        System.out.println(students);    
     }
 }
