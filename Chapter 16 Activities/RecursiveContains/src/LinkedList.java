@@ -41,18 +41,18 @@ public class LinkedList
     */
     public boolean contains(Object obj)
     {
-        // ...
+        return containsHelper(first, obj); 
     }
-
-    /**
-        Checks if the given node or any in its following nodes contains the given object.
-        @param obj The object to be checked for.
-        @return If the object exists in the node or its following nodes.
-    */
-    public static boolean contains(Node start, Object obj)
+    
+    public boolean containsHelper(Node node, Object obj)
     {
-        // ...
+        if (node == null)
+            return false;
+        if (node.data.equals(obj))
+            return true;
+        return containsHelper(node.next, obj);
     }
+ 
 
     /**
         Returns the first element in the linked list.
