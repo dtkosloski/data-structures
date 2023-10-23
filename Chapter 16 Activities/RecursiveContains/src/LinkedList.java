@@ -46,7 +46,7 @@ public class LinkedList
     
     public boolean containsHelper(Node node, Object obj)
     {
-        if (node == null)
+        if (node == null || obj == null)
             return false;
         if (node.data.equals(obj))
             return true;

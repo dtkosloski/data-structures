@@ -41,6 +41,9 @@ public class LinkedList
     */
     public boolean contains(Object obj)
     {
+        if(obj == null){
+            return false;
+        }
         Node temp=first;
         while(temp!=null)
         {
