@@ -115,10 +115,22 @@ public class MorseCode
      */
     public static String encode(String text)
     {
-        StringBuffer morse = new StringBuffer(400);
+        //StringBuffer morse = new StringBuffer(400);
+        String morse = " ";
+        text = text.toUpperCase();
+        for (int count = 0; count < text.length();count++){
+            char letter = text.charAt(0);
+            if (codeMap.containsKey(letter)){
+                morse+=codeMap.get(letter);
+            }
+            else if(letter == ' '){
+                morse+=" ";
+            }
+            text = text.substring(1);
+            morse+=" ";
 
-
-        return morse.toString();
+        }
+        return morse;
     }
 
     /**
@@ -129,13 +141,25 @@ public class MorseCode
      */
     public static String decode(String morse)
     {
-        StringBuffer text = new StringBuffer(100);
+        //StringBuffer text = new StringBuffer(100);
+        
+        for (; morse.length()>0;){
+            morse.indexOf(" ");
+            char letter = text.charAt(0);
+            if (codeMap.containsKey(letter)){
+                morse+=codeMap.get(letter);
+            }
+            else if(letter == ' '){
+                morse+=" ";
+            }
+            text = text.substring(1);
+            morse+=" ";
 
-        /*
-            !!! INSERT CODE HERE
-        */
+        }
+        
+        
 
-        return text.toString();
+        return text;
     }
 }
 
