@@ -142,21 +142,29 @@ public class MorseCode
     public static String decode(String morse)
     {
         //StringBuffer text = new StringBuffer(100);
-        
-        for (; morse.length()>0;){
-            morse.indexOf(" ");
-            char letter = text.charAt(0);
-            if (codeMap.containsKey(letter)){
-                morse+=codeMap.get(letter);
-            }
-            else if(letter == ' '){
-                morse+=" ";
-            }
-            text = text.substring(1);
-            morse+=" ";
-
+        String text = "";
+        String letter = morse;
+        if (morse.length()>0){
+            letter = morse.substring(morse.indexOf(" "));
         }
+        morse = morse.substring(morse.indexOf(" "));
         
+            TreeNode current = decodeTree;
+
+            for (int i = 0; i < letter.length(); i++) {
+                char symbol = letter.charAt(i);
+                if (symbol == DOT) {
+                    current = current.getLeft();
+                } else if (symbol == DASH) {
+                    current = current.getRight();
+                }
+                
+            }
+
+            text+=current.getValue();
+
+        
+        //morse = morse.substring(1);
         
 
         return text;
