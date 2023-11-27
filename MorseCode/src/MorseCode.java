@@ -113,24 +113,22 @@ public class MorseCode
      * into the encoded message.
      * Returns the encoded message.
      */
-    public static String encode(String text)
-    {
-        //StringBuffer morse = new StringBuffer(400);
-        String morse = " ";
+    public static String encode(String text) {
+        StringBuilder morse = new StringBuilder();
+    
         text = text.toUpperCase();
-        for (int count = 0; count < text.length();count++){
-            char letter = text.charAt(0);
-            if (codeMap.containsKey(letter)){
-                morse+=codeMap.get(letter);
+        
+        for (int count = 0; count < text.length(); count++) {
+            char letter = text.charAt(count);
+    
+            if (codeMap.containsKey(letter)) {
+                morse.append(codeMap.get(letter)).append(" ");
+            } else if (letter == ' ') {
+                morse.append(" ");
             }
-            else if(letter == ' '){
-                morse+=" ";
-            }
-            text = text.substring(1);
-            morse+=" ";
-
         }
-        return morse;
+    
+        return morse.toString().trim();  // Remove trailing space
     }
 
     /**
@@ -141,33 +139,34 @@ public class MorseCode
      */
     public static String decode(String morse)
     {
-        //StringBuffer text = new StringBuffer(100);
-        String text = "";
-        String letter = morse;
-        if (morse.length()>0){
-            letter = morse.substring(morse.indexOf(" "));
-        }
-        morse = morse.substring(morse.indexOf(" "));
         
+        StringBuilder text = new StringBuilder();
+    
+
+    String[] morseChars = morse.split(" ");
+
+    for (String morseChar : morseChars) {
+      
+        if (!morseChar.isEmpty()) {
             TreeNode current = decodeTree;
 
-            for (int i = 0; i < letter.length(); i++) {
-                char symbol = letter.charAt(i);
+            for (int i = 0; i < morseChar.length(); i++) {
+                char symbol = morseChar.charAt(i);
                 if (symbol == DOT) {
                     current = current.getLeft();
                 } else if (symbol == DASH) {
                     current = current.getRight();
                 }
-                
             }
 
-            text+=current.getValue();
+            text.append(current.getValue());
+        } else {
+           
+            text.append(" ");
+        }
+    }
 
-        
-        //morse = morse.substring(1);
-        
-
-        return text;
+    return text.toString();
     }
 }
 
